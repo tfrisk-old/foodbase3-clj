@@ -71,7 +71,7 @@
 			{ :id "i-1443790a-4a71-4813-8d66-b9d0e8d339eb" :order 4 :text "stabilointiaine (E420)" }
 			{ :id "i-fc0544f5-4992-453d-a49a-0f6dfcd587a2" :order 5 :text "liivate" }
 			{ :id "i-8521e973-ace1-491a-bd68-fc1c969e681e" :order 6 :text "muunnettu tärkkelys" }
-			{ :id "i-bfbe800c-d1f8-435b-a91d-bad6fa833460" :order 7 :text "happamuudensäätöaine (E330, E331)" }
+			{ :id "i-bfbe800c-d1f8-435b-a91d-bad6fa833460" :order 7 :text "happamuudensäätöaine (E330, E331)" }
 			{ :id "i-370b8b91-e9be-434b-9510-3dc6c9b0ab0a" :order 8 :text "lakritsiuute" }
 			{ :id "i-8f64bcd6-15fe-4c19-8969-6c092ba322db" :order 9 :text "suola" }
 			{ :id "i-2c9ad1cc-4dda-43d7-8695-c2f1fed369ba" :order 10 :text "aromit" }

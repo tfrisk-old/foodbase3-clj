@@ -43,3 +43,11 @@
 	[id]
 	(let [lst (find-item-category id)]
 		((keyword id) lst)))
+
+; TODO: refactor to use filter instead of for
+(defn search-ingredients-by-name [searchtext]
+	"Search ingredients by name"
+	(into []
+		(for [entry db/ingredientlist]
+			(let [{:keys [id name]} entry]
+				(if (= name searchtext) (str id))))))
