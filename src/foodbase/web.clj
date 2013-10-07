@@ -10,7 +10,9 @@
 		[:body content]))
 
 (defn print-ingredient-item [item]
-	[:li (:text item)])
+	[:li
+		(link-to (str "/details/" (:id item)) (str (:text item)))
+	])
 
 (defn print-nutrition-item [item]
 	[:li (str (key item) ":" (val item))])
