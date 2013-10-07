@@ -37,12 +37,12 @@
 		:barcode "6408430041213"
 		:weight "200g"
 		:origin "Finland"
-		:ingredients {
+		:ingredients [
 			{ :id "i-eb191222-108e-4826-a736-fa99faf29db6" :order 1 :text "kerma" }
 			{ :id "i-fd7b1fa5-9069-4f85-ab96-1529ab6a83ef" :order 2 :text "muunnettu maissitärkkelys" }
 			{ :id "i-92524e01-16be-4b81-a05b-2ca6ac0bc4ea" :order 3 :text "sakeuttamisaine pektiini" }
 			{ :id "i-b7bd971a-5e38-4f3d-94c1-bb537826942d" :order 4 :text "hapate" }
-		}
+		]
 		:nutritions {
 			:unit "100g"
 			:energy 140 ;kcal
@@ -64,7 +64,7 @@
 		:barcode "6416453036857"
 		:weight "150g"
 		:origin "Finland"
-		:ingredients {
+		:ingredients [
 			{ :id "i-292de23b-7620-4a7e-bda0-d088bd6c3742" :order 1 :text "sokeri" }
 			{ :id "i-5de0e380-f2ad-4a8f-821e-3907a7202ffc" :order 2 :text "glukoosisiirappi" }
 			{ :id "i-a3114042-7335-4524-8434-3ac77fd58abf" :order 3 :text "maissitärkkelys" }
@@ -77,7 +77,7 @@
 			{ :id "i-2c9ad1cc-4dda-43d7-8695-c2f1fed369ba" :order 10 :text "aromit" }
 			{ :id "i-c287477a-72ca-476b-ab6f-41c0b552b45d" :order 11 :text "pintakäsittelyaine (E903)" }
 			{ :id "i-9c5bbf35-4fde-4cb6-a19e-2aa3dcc0fa59" :order 12 :text "värit (E153, E120, E160a, E131, E100)" }
-		}
+		]
 		:nutritions {
 			:unit "100g"
 			:energy 345 ;kcal
@@ -99,12 +99,12 @@
 		:barcode "6413300016345"
 		:weight "400g"
 		:origin "Finland"
-		:ingredients {
+		:ingredients [
 			{ :id "i-eb191222-108e-4826-a736-fa99faf29db6" :order 1 :text "kerma" }
 			{ :id "i-47343e09-9952-4de9-9ec4-92feb56e5e64" :order 2 :text "pastöroitu maito" }
 			{ :id "i-64adb208-d30c-4ec4-b484-6d43f2a973cf" :order 3 :text "maitoproteiini" }
 			{ :id "i-b7bd971a-5e38-4f3d-94c1-bb537826942d" :order 4 :text "hapate" }
-		}
+		]
 		:nutritions {
 			:unit "100g"
 			:energy 125 ;kcal
