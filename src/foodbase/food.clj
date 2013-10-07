@@ -14,29 +14,23 @@
 			(if (= ((keyword skey) entry) sval) (:id entry))) ; add current id to results if name matches
 			inputvector))))) ; collection to use for searching
 
-(defn search-foods-by-name [searchtext]
-	"Search foods by name"
-	(search-vector-of-maps db/foodlist [:name searchtext]))
-
-(defn search-ingredients-by-name [searchtext]
-	"Search ingredients by name"
-	(search-vector-of-maps db/ingredientlist [:name searchtext]))
+;TODO: this has duplicate code with search-vector-of-maps
+(defn filter-vector-of-maps
+	"Filter entries from vector of maps, search by id"
+	[inputvector searchid]
+	(first ; return first result assuming there will always be only one result for a given id
+		(filter identity ; filter out nil entries
+		(into [] (map (fn [m] ; go thru the whole collection
+			(if (= (:id m) searchid) m))
+			inputvector))))) ; collection to use for searching
 
 (defn get-food-data [searchid]
 	"Get food data"
-	(first ; return first result assuming there will always be only one result for a given id
-		(filter identity ; filter out nil entries
-		(into [] (map (fn [m] ; go thru the whole collection
-			(if (= (:id m) searchid) m))
-			db/foodlist))))) ; collection to use for searching
+	(filter-vector-of-maps db/foodlist searchid))
 
 (defn get-ingredient-data [searchid]
 	"Get ingredient data"
-	(first ; return first result assuming there will always be only one result for a given id
-		(filter identity ; filter out nil entries
-		(into [] (map (fn [m] ; go thru the whole collection
-			(if (= (:id m) searchid) m))
-			db/ingredientlist))))) ; collection to use for searching
+	(filter-vector-of-maps db/ingredientlist searchid))
 
 (defn get-food-details
 	"Get specific details for specified food"
@@ -63,3 +57,11 @@
 	[foodid ingredientid]
 	(if (empty? (search-vector-of-maps (get-food-ingredients foodid) [:id ingredientid]))
 		false true))
+
+(defn search-foods-by-name [searchtext]
+	"Search foods by name"
+	(search-vector-of-maps db/foodlist [:name searchtext]))
+
+(defn search-ingredients-by-name [searchtext]
+	"Search ingredients by name"
+	(search-vector-of-maps db/ingredientlist [:name searchtext]))
