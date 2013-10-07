@@ -30,6 +30,7 @@
 			[:li "Manufacturer: " (:manufacturer fooddata)]
 			[:li "Barcode: " (:barcode fooddata)]
 			[:li "Weight: " (:weight fooddata)]
+			[:li "Volume: " (:volume fooddata)]
 			[:li "Origin: " (:origin fooddata)]])
 		(let [ingredients (food/get-food-ingredients id)]
 			[:ul "Ingredients" (map print-ingredient-item ingredients)])

@@ -25,6 +25,7 @@
 	{ :id "i-9c5bbf35-4fde-4cb6-a19e-2aa3dcc0fa59" :name "värit (E153, E120, E160a, E131, E100)" }
 	{ :id "i-47343e09-9952-4de9-9ec4-92feb56e5e64" :name "pastöroitu maito" }
 	{ :id "i-64adb208-d30c-4ec4-b484-6d43f2a973cf" :name "maitoproteiini" }
+	{ :id "i-1b9ae59c-1ad6-4748-a011-4b12838c460f" :name "stabilointiaine karrageeni" }
 ])
 
 ;Data structure for food item
@@ -56,6 +57,32 @@
 			:maitotuote true
 		}
 	} ;ranskankerma
+	{
+		:id "f-0b353afa-475d-4df7-994d-5eb1cb89da48";vispikerma
+		:name "Vispikerma eila laktoositon"
+		:description "laktoositon vispikerma"
+		:manufacturer "Valio"
+		:barcode "6408430014545"
+		:weight ""
+		:volume "2dl"
+		:origin "Finland"
+		:ingredients [
+			{ :id "i-eb191222-108e-4826-a736-fa99faf29db6" :order 1 :text "kerma" }
+			{ :id "i-1b9ae59c-1ad6-4748-a011-4b12838c460f" :order 2 :text "stabilointiaine karrageeni" }
+		]
+		:nutritions {
+			:unit "100g"
+			:energy 360 ;kcal
+			:proteins 2.0
+			:carbs 2.7
+			:lactose 0
+			:fats 38
+		}
+		:tags {
+			:laktoositon true
+			:maitotuote true
+		}
+	} ;vispikerma
 	{
 		:id "f-30e5f2a4-5263-4477-a337-857919de4308" ;angrybirdskarkit
 		:name "Angry Birds makeissekoitus"
