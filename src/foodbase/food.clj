@@ -65,3 +65,13 @@
 (defn search-ingredients-by-name [searchtext]
 	"Search ingredients by name"
 	(search-vector-of-maps db/ingredientlist [:name searchtext]))
+
+(defn get-food-list
+	"Get list of all foods"
+	[]
+	(seq db/foodlist))
+
+(defn get-ingredient-list
+	"Get list of all ingredients"
+	[]
+	(seq db/ingredientlist))

@@ -5,5 +5,9 @@
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [
   	[org.clojure/clojure "1.5.1"]
-  	[clj-time "0.4.4"]]
+  	[clj-time "0.4.4"]
+  	[compojure "1.1.5"]
+  	[hiccup "1.0.4"]]
+  :plugins [[lein-ring "0.8.3"]]
+  :ring {:handler foodbase.routes/app :auto-reload? true}
   :main foodbase.food)
