@@ -3,29 +3,45 @@
 			[foodbase.date :as date]
 			[foodbase.uuid :as uuid]))
 
+(defn get-ingredient-data [searchid]
+	"Get ingredient data"
+	(first ; return first result assuming there will always be only one result for a given id
+		(filter identity ; filter out nil entries
+		(into [] (map (fn [m] ; go thru the whole collection
+			(if (= (:id m) searchid) m))
+			db/ingredientlist))))) ; collection to use for searching
+
+(defn get-food-data [searchid]
+	"Get food data"
+	(first ; return first result assuming there will always be only one result for a given id
+		(filter identity ; filter out nil entries
+		(into [] (map (fn [m] ; go thru the whole collection
+			(if (= (:id m) searchid) m))
+			db/foodlist))))) ; collection to use for searching
+
 (defn get-food-ingredients
 	"Return ingredients for specified food"
 	[foodid]
-	(:ingredients ((keyword foodid) db/foodlist)))
+	(:ingredients (get-food-data foodid)))
 
 (defn get-food-nutritions
 	"Return nutrition values for specified food"
 	[foodid]
-	(:nutritions ((keyword foodid) db/foodlist)))
+	(:nutritions (get-food-data foodid)))
 
 (defn find-item-category
 	"Find correct input data for given id"
 	;TODO: data handling should be better. Currently this returns the whole data sets
 	[id]
 	(case (first id)
-		\f db/foodlist
-		\i db/ingredientlist))
+		\f get-food-data
+		\i get-ingredient-data))
 
 (defn get-tags
 	"Get all tags for specified item"
 	[id]
-	(let [lst (find-item-category id)]
-		(:tags ((keyword id) lst))))
+	(let [datasource (find-item-category id)]
+		(:tags (datasource id))))
 
 (defn is-tagged-with?
 	"Check if item is tagged with specified tag"
@@ -35,6 +51,7 @@
 
 (defn food-contains-ingredient?
 	"Check if food contains ingredient. Returns vector [n desc] if found, otherwise nil"
+	;TODO: data structure changed and this isn't working anymore
 	[foodid ingredientid]
 	((keyword ingredientid) (get-food-ingredients foodid)))
 
