@@ -5,7 +5,7 @@ My Clojure learning project.
 
 ## Usage
 
-Currently 'lein repl'
+Start server with command <code>lein ring server</code>
 
 ## License
 
