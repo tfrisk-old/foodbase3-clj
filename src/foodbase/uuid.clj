@@ -10,5 +10,6 @@
 	[category]
 	(let [x (case category
 			:food "f-"
-			:ingredient "i-")]
+			:ingredient "i-"
+			:manufacturer "m-")]
 		(str x (generate-raw-uuid))))

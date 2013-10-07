@@ -32,6 +32,10 @@
 	"Get ingredient data"
 	(filter-vector-of-maps db/ingredientlist searchid))
 
+(defn get-manufacturer-data [searchid]
+	"Get manufacturer data"
+	(filter-vector-of-maps db/manufacturerlist searchid))
+
 (defn get-food-details
 	"Get specific details for specified food"
 	[foodid detail]
@@ -58,6 +62,10 @@
 	(if (empty? (search-vector-of-maps (get-food-ingredients foodid) [:id ingredientid]))
 		false true))
 
+(defn search-foods-by-manufacturer-id [searchid]
+	"Search foods by name"
+	(search-vector-of-maps db/foodlist [:manufacturer searchid]))
+
 (defn search-foods-by-name [searchtext]
 	"Search foods by name"
 	(search-vector-of-maps db/foodlist [:name searchtext]))
@@ -75,3 +83,8 @@
 	"Get list of all ingredients"
 	[]
 	(seq db/ingredientlist))
+
+(defn get-manufacturer-list
+	"Get list of all manufacturers"
+	[]
+	(seq db/manufacturerlist))

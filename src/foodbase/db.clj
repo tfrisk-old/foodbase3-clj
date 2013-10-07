@@ -2,6 +2,12 @@
 
 ;This contains only few foods for testing purposes
 
+(def manufacturerlist [
+	{ :id "m-6bcf5b66-6072-42db-92d1-842b76cd0343" :name "Arla Ingman" }
+	{ :id "m-c92aac9e-22ae-4645-8cc3-4513d5582449" :name "Fazer" }
+	{ :id "m-a5ca74fa-c538-452f-99a3-b6e3c9395f07" :name "Valio" }
+])
+
 (def ingredientlist [
 	{
 		:id "i-eb191222-108e-4826-a736-fa99faf29db6"
@@ -34,7 +40,7 @@
 		:id "f-3cfd0d6f-3d03-4908-9d98-b6ffe1783cac";ranskankerma
 		:name "Kevyt Créme Fraíche eila laktoositon"
 		:description "laktoositon kevyt ranskankerma keittoihin, kastikkeisiin ja wokkiruokiin, ..."
-		:manufacturer "Valio"
+		:manufacturer "m-a5ca74fa-c538-452f-99a3-b6e3c9395f07"
 		:barcode "6408430041213"
 		:weight "200g"
 		:origin "Finland"
@@ -61,7 +67,7 @@
 		:id "f-0b353afa-475d-4df7-994d-5eb1cb89da48";vispikerma
 		:name "Vispikerma eila laktoositon"
 		:description "laktoositon vispikerma"
-		:manufacturer "Valio"
+		:manufacturer "m-a5ca74fa-c538-452f-99a3-b6e3c9395f07"
 		:barcode "6408430014545"
 		:weight ""
 		:volume "2dl"
@@ -87,7 +93,7 @@
 		:id "f-30e5f2a4-5263-4477-a337-857919de4308" ;angrybirdskarkit
 		:name "Angry Birds makeissekoitus"
 		:description "makeissekoitus"
-		:manufacturer "Fazer"
+		:manufacturer "m-c92aac9e-22ae-4645-8cc3-4513d5582449"
 		:barcode "6416453036857"
 		:weight "150g"
 		:origin "Finland"
@@ -122,7 +128,7 @@
 		:id "f-80ad49f1-a416-4e04-b268-982a815f4fe7" ;turkkilainenjogurtti
 		:name "Turkkilainen jogurtti"
 		:description "Turkkilainen jogurtti laktoositon maustamaton"
-		:manufacturer "Arla Ingman Oy"
+		:manufacturer "m-6bcf5b66-6072-42db-92d1-842b76cd0343"
 		:barcode "6413300016345"
 		:weight "400g"
 		:origin "Finland"

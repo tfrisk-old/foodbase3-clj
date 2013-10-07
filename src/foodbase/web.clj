@@ -50,10 +50,20 @@
 		
 	(link-to "/" "Back to index")))
 
+(defn show-manufacturer-details [id]
+	(layout
+		[:h1 "Manufacturer detail page"]
+		(let [manufacturerdata (food/get-manufacturer-data id)]
+			[:ul "Basic information"
+			[:li "Name: " (:name manufacturerdata)]])
+		
+	(link-to "/" "Back to index")))
+
 (defn detail-page [id]
 	(case (first id)
 		\f (show-food-details id)
-		\i (show-ingredient-details id)))
+		\i (show-ingredient-details id)
+		\m (show-manufacturer-details id)))
 
 ; ----------- index page ----------------
 (defn show-list-row [item]
@@ -69,9 +79,14 @@
 	[:ul (map show-list-row
 		(food/get-food-list))])
 
+(defn show-manufacturer-list []
+	[:ul (map show-list-row
+		(food/get-manufacturer-list))])
+
 (defn index-page []
 	(layout
 		[:h1 "Foodbase"]
 		[:h2 "Food list"] (show-food-list)
 		[:h2 "Ingredient list"] (show-ingredient-list)
+		[:h2 "Manufacturer list"] (show-manufacturer-list)
 ))
