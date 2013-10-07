@@ -9,9 +9,53 @@
 		[:head [:title "Foodbase"]]
 		[:body content]))
 
+(defn print-ingredient-item [item]
+	[:li (:text item)])
+
+(defn print-nutrition-item [item]
+	[:li (str (key item) ":" (val item))])
+
+(defn print-tag [tag]
+	[:li (str (key tag))])
+
+(defn show-food-details [id]
+	(layout
+		[:h1 "Food detail page"]
+		(let [fooddata (food/get-food-data id)]
+			[:ul "Basic information"
+			[:li "Name: " (:name fooddata)]
+			[:li "Description: " (:description fooddata)]
+			[:li "Manufacturer: " (:manufacturer fooddata)]
+			[:li "Barcode: " (:barcode fooddata)]
+			[:li "Weight: " (:weight fooddata)]
+			[:li "Origin: " (:origin fooddata)]])
+		(let [ingredients (food/get-food-ingredients id)]
+			[:ul "Ingredients" (map print-ingredient-item ingredients)])
+		(let [nutritions (food/get-food-nutritions id)]
+			[:ul "Nutritions" (map print-nutrition-item nutritions)])
+		
+	(link-to "/" "Back to index")))
+
+(defn show-ingredient-details [id]
+	(layout
+		[:h1 "Ingredient detail page"]
+		(let [ingredientdata (food/get-ingredient-data id)]
+			[:ul "Basic information"
+			[:li "Name: " (:name ingredientdata)]])
+		(let [tags (food/get-ingredient-details id :tags)]
+			[:ul "Tags" (map print-tag tags)])
+		
+	(link-to "/" "Back to index")))
+
+(defn detail-page [id]
+	(case (first id)
+		\f (show-food-details id)
+		\i (show-ingredient-details id)))
+
+; ----------- index page ----------------
 (defn show-list-row [item]
 	[:li
-		(link-to (str "/ingredients/" (:id item)) (str (:name item)))
+		(link-to (str "/details/" (:id item)) (str (:name item)))
 	])
 
 (defn show-ingredient-list []

@@ -10,6 +10,7 @@
 
 (defroutes app-routes
 	(GET "/" [] (web/index-page))
+	(GET "/details/:id" [id] (web/detail-page id))
 	(route/not-found "Page not found"))
 
 (def app
