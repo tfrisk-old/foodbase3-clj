@@ -69,7 +69,11 @@
 
 (defn search-foods-by-manufacturer-id [searchid]
 	"Search foods by name"
-	(search-vector-of-maps db/foodlist [:manufacturer searchid]))
+	(let [foodids (search-vector-of-maps db/foodlist [:manufacturer searchid])]
+		(map
+			(fn [id] (hash-map :id (str id) :name (str (get-food-details id :name))))
+			(seq foodids))
+	))
 
 (defn search-foods-by-name [searchtext]
 	"Search foods by name"

@@ -14,6 +14,11 @@
 		(link-to (str "/details/" (:id item)) (str (:text item)))
 	])
 
+(defn print-food-item [item]
+	[:li
+		(link-to (str "/details/" (:id item)) (str (:name item)))
+	])
+
 (defn print-nutrition-item [item]
 	[:li (str (key item) ":" (val item))])
 
@@ -61,6 +66,8 @@
 		(let [manufacturerdata (food/get-manufacturer-data id)]
 			[:ul "Basic information"
 			[:li "Name: " (:name manufacturerdata)]])
+		(let [foods (food/search-foods-by-manufacturer-id id)]
+			[:ul "Foods" (map print-food-item foods)])
 		
 	(link-to "/" "Back to index")))
 
