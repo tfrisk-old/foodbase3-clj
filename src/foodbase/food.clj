@@ -68,7 +68,7 @@
 		false true))
 
 (defn search-foods-by-manufacturer-id [searchid]
-	"Search foods by name"
+	"Search foods by manufacturer id"
 	(let [foodids (search-vector-of-maps db/foodlist [:manufacturer searchid])]
 		(map
 			(fn [id] (hash-map :id (str id) :name (str (get-food-details id :name))))
@@ -97,3 +97,13 @@
 	"Get list of all manufacturers"
 	[]
 	(seq db/manufacturerlist))
+
+(defn search-foods-by-ingredient-id [searchid]
+	"Search foods by ingredient id. Returns lazy sequence of ids"
+	(filter identity (map
+		(fn [foodentry]
+			(let [inglist (get-food-ingredients (:id foodentry))]
+				(if (empty? (filter-vector-of-maps inglist searchid))
+					nil (:id foodentry))))
+		(seq (get-food-list))
+	)))
