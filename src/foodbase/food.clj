@@ -46,6 +46,11 @@
 	[ingredientid detail]
 	((keyword detail) (get-ingredient-data ingredientid)))
 
+(defn get-manufacturer-details
+	"Get specific details for specified manufacturer"
+	[manufacturerid detail]
+	((keyword detail) (get-manufacturer-data manufacturerid)))
+
 (defn get-food-ingredients
 	"Return ingredients for specified food"
 	[foodid]

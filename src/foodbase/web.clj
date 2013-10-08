@@ -27,7 +27,10 @@
 			[:ul "Basic information"
 			[:li "Name: " (:name fooddata)]
 			[:li "Description: " (:description fooddata)]
-			[:li "Manufacturer: " (:manufacturer fooddata)]
+			[:li "Manufacturer: "
+				(link-to (str "/details/" (:manufacturer fooddata))
+					(food/get-manufacturer-details (:manufacturer fooddata) :name))
+			]
 			[:li "Barcode: " (:barcode fooddata)]
 			[:li "Weight: " (:weight fooddata)]
 			[:li "Volume: " (:volume fooddata)]
