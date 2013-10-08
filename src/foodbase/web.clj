@@ -39,6 +39,8 @@
 			[:ul "Ingredients" (map print-ingredient-item ingredients)])
 		(let [nutritions (food/get-food-nutritions id)]
 			[:ul "Nutritions" (map print-nutrition-item nutritions)])
+		(let [tags (food/get-food-details id :tags)]
+			[:ul "Tags" (map print-tag tags)])
 		
 	(link-to "/" "Back to index")))
 

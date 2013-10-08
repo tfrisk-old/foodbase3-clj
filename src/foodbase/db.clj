@@ -120,7 +120,6 @@
 		}
 		:tags {
 			:laktoositon true
-			:maitotuote false
 			:makeinen true
 		}
 	} ;angrybirdskarkit
