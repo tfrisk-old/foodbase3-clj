@@ -5,6 +5,7 @@
 
 ;(into [] map()) approach perhaps isn't the best for this but it works for now.
 ;TODO: use regexp for name matching
+;returns only matching id
 (defn search-vector-of-maps
 	"Search vector of maps, searchterm is [:key value] pair"
 	[inputvector [skey sval]]
@@ -15,6 +16,7 @@
 			inputvector))))) ; collection to use for searching
 
 ;TODO: this has duplicate code with search-vector-of-maps
+;returns the whole matching map
 (defn filter-vector-of-maps
 	"Filter entries from vector of maps, search by id"
 	[inputvector searchid]
@@ -102,8 +104,11 @@
 	"Search foods by ingredient id. Returns lazy sequence of ids"
 	(filter identity (map
 		(fn [foodentry]
-			(let [inglist (get-food-ingredients (:id foodentry))]
+			(let [foodid (:id foodentry) inglist (get-food-ingredients foodid)]
 				(if (empty? (filter-vector-of-maps inglist searchid))
-					nil (:id foodentry))))
+					nil
+					(hash-map 
+						:id foodid
+						:name (get-food-details foodid :name)))))
 		(seq (get-food-list))
 	)))

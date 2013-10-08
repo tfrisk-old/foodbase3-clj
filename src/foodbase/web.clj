@@ -57,6 +57,8 @@
 			[:li "Name: " (:name ingredientdata)]])
 		(let [tags (food/get-ingredient-details id :tags)]
 			[:ul "Tags" (map print-tag tags)])
+		(let [foods (food/search-foods-by-ingredient-id id)]
+			[:ul "Foods" (map print-food-item foods)])
 		
 	(link-to "/" "Back to index")))
 
