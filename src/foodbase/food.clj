@@ -26,16 +26,19 @@
 			(if (= (:id m) searchid) m))
 			inputvector))))) ; collection to use for searching
 
-(defn get-food-data [searchid]
+(defn get-food-data
 	"Get food data"
+	[searchid]
 	(db/load-item-by-id searchid))
 
-(defn get-ingredient-data [searchid]
+(defn get-ingredient-data
 	"Get ingredient data"
+	[searchid]
 	(db/load-item-by-id searchid))
 
-(defn get-manufacturer-data [searchid]
+(defn get-manufacturer-data
 	"Get manufacturer data"
+	[searchid]
 	(db/load-item-by-id searchid))
 
 (defn get-food-details
@@ -69,12 +72,9 @@
 	(if (empty? (search-vector-of-maps (get-food-ingredients foodid) [:id ingredientid]))
 		false true))
 
-(defn search-foods-by-name [searchtext]
-	"Search foods by name"
-	(search-vector-of-maps (db/load-food-list) [:name searchtext]))
-
-(defn search-ingredients-by-name [searchtext]
+(defn search-ingredients-by-name
 	"Search ingredients by name"
+	[searchtext]
 	(search-vector-of-maps (db/load-ingredient-list) [:name searchtext]))
 
 (defn get-food-list
@@ -92,8 +92,9 @@
 	[]
 	(seq (db/load-manufacturer-list)))
 
-(defn search-foods-by-ingredient-id [searchid]
+(defn search-foods-by-ingredient-id
 	"Search foods by ingredient id. Returns lazy sequence of ids"
+	[searchid]
 	(filter identity (map
 		(fn [foodentry]
 			(let [foodid (:id foodentry) inglist (get-food-ingredients foodid)]
@@ -105,15 +106,30 @@
 		(seq (get-food-list))
 	)))
 
-(defn search-foods-by-manufacturer-id [searchid]
+(defn search-foods-by-manufacturer-id
 	"Search foods by manufacturer id"
+	[searchid]
 	(filter identity (map
 		(fn [foodentry]
 			(let [foodid (:id foodentry)]
 				(if (= (:manufacturer (db/load-item-by-id foodid)) (str searchid))
-					(hash-map
-						:id foodid
-						:name (get-food-details foodid :name))
+					(hash-map :id foodid :name (get-food-details foodid :name))
 					nil)))
+			(seq (get-food-list))
+	)))
+
+(defn search-foods-by-name
+	"Search foods by name, case insensitive."
+	[searchtext]
+	(filter identity (map
+		(fn [foodentry]
+			(let [foodid (:id foodentry)]
+				(if (nil?
+					(re-matches
+						(re-pattern (str ".*" (clojure.string/lower-case searchtext) ".*"))
+						(clojure.string/lower-case (:name (db/load-item-by-id foodid)))))
+					nil
+					(hash-map :id foodid :name (get-food-details foodid :name))
+			)))
 			(seq (get-food-list))
 	)))
