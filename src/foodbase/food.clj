@@ -28,15 +28,15 @@
 
 (defn get-food-data [searchid]
 	"Get food data"
-	(filter-vector-of-maps (db/load-food-list) searchid))
+	(db/load-item-by-id searchid))
 
 (defn get-ingredient-data [searchid]
 	"Get ingredient data"
-	(filter-vector-of-maps (db/load-ingredient-list) searchid))
+	(db/load-item-by-id searchid))
 
 (defn get-manufacturer-data [searchid]
 	"Get manufacturer data"
-	(filter-vector-of-maps (db/load-manufacturer-list) searchid))
+	(db/load-item-by-id searchid))
 
 (defn get-food-details
 	"Get specific details for specified food"
@@ -68,14 +68,6 @@
 	[foodid ingredientid]
 	(if (empty? (search-vector-of-maps (get-food-ingredients foodid) [:id ingredientid]))
 		false true))
-
-(defn search-foods-by-manufacturer-id [searchid]
-	"Search foods by manufacturer id"
-	(let [foodids (search-vector-of-maps (db/load-food-list) [:manufacturer searchid])]
-		(map
-			(fn [id] (hash-map :id (str id) :name (str (get-food-details id :name))))
-			(seq foodids))
-	))
 
 (defn search-foods-by-name [searchtext]
 	"Search foods by name"
@@ -111,4 +103,17 @@
 						:id foodid
 						:name (get-food-details foodid :name)))))
 		(seq (get-food-list))
+	)))
+
+(defn search-foods-by-manufacturer-id [searchid]
+	"Search foods by manufacturer id"
+	(filter identity (map
+		(fn [foodentry]
+			(let [foodid (:id foodentry)]
+				(if (= (:manufacturer (db/load-item-by-id foodid)) (str searchid))
+					(hash-map
+						:id foodid
+						:name (get-food-details foodid :name))
+					nil)))
+			(seq (get-food-list))
 	)))
