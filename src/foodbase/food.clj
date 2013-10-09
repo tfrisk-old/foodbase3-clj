@@ -28,15 +28,15 @@
 
 (defn get-food-data [searchid]
 	"Get food data"
-	(filter-vector-of-maps db/foodlist searchid))
+	(filter-vector-of-maps (db/load-food-list) searchid))
 
 (defn get-ingredient-data [searchid]
 	"Get ingredient data"
-	(filter-vector-of-maps db/ingredientlist searchid))
+	(filter-vector-of-maps (db/load-ingredient-list) searchid))
 
 (defn get-manufacturer-data [searchid]
 	"Get manufacturer data"
-	(filter-vector-of-maps db/manufacturerlist searchid))
+	(filter-vector-of-maps (db/load-manufacturer-list) searchid))
 
 (defn get-food-details
 	"Get specific details for specified food"
@@ -71,7 +71,7 @@
 
 (defn search-foods-by-manufacturer-id [searchid]
 	"Search foods by manufacturer id"
-	(let [foodids (search-vector-of-maps db/foodlist [:manufacturer searchid])]
+	(let [foodids (search-vector-of-maps (db/load-food-list) [:manufacturer searchid])]
 		(map
 			(fn [id] (hash-map :id (str id) :name (str (get-food-details id :name))))
 			(seq foodids))
@@ -79,26 +79,26 @@
 
 (defn search-foods-by-name [searchtext]
 	"Search foods by name"
-	(search-vector-of-maps db/foodlist [:name searchtext]))
+	(search-vector-of-maps (db/load-food-list) [:name searchtext]))
 
 (defn search-ingredients-by-name [searchtext]
 	"Search ingredients by name"
-	(search-vector-of-maps db/ingredientlist [:name searchtext]))
+	(search-vector-of-maps (db/load-ingredient-list) [:name searchtext]))
 
 (defn get-food-list
 	"Get list of all foods"
 	[]
-	(seq db/foodlist))
+	(seq (db/load-food-list)))
 
 (defn get-ingredient-list
 	"Get list of all ingredients"
 	[]
-	(seq db/ingredientlist))
+	(seq (db/load-ingredient-list)))
 
 (defn get-manufacturer-list
 	"Get list of all manufacturers"
 	[]
-	(seq db/manufacturerlist))
+	(seq (db/load-manufacturer-list)))
 
 (defn search-foods-by-ingredient-id [searchid]
 	"Search foods by ingredient id. Returns lazy sequence of ids"
