@@ -2,11 +2,17 @@
 	(:use compojure.core)
 	(:use [foodbase.food :as food])
 	(:use [hiccup core form page element])
-	(:require [compojure.route :as route]))
+	(:require
+		[compojure.route :as route]
+		[hiccup
+			[page :refer [html5]]
+			[page :refer [include-js]]]))
 
 (defn layout [& content]
 	(html5
-		[:head [:title "Foodbase"]]
+		[:head
+			[:title "Foodbase"]
+			(include-js "js/main.js")]
 		[:body content]))
 
 (defn print-li-item-with-link
