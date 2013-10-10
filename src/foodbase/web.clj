@@ -9,14 +9,11 @@
 		[:head [:title "Foodbase"]]
 		[:body content]))
 
-(defn print-ingredient-item [item]
+(defn print-li-item-with-link
+	"Print single li item with :kword as link text. Link points to (:id item)"
+	[item kword]
 	[:li
-		(link-to (str "/details/" (:id item)) (str (:text item)))
-	])
-
-(defn print-food-item [item]
-	[:li
-		(link-to (str "/details/" (:id item)) (str (:name item)))
+		(link-to (str "/details/" (:id item)) (str ((keyword kword) item)))
 	])
 
 (defn print-nutrition-item [item]
@@ -41,7 +38,7 @@
 			[:li "Volume: " (:volume fooddata)]
 			[:li "Origin: " (:origin fooddata)]])
 		(let [ingredients (food/get-food-ingredients id)]
-			[:ul "Ingredients" (map print-ingredient-item ingredients)])
+			[:ul "Ingredients" (map #(print-li-item-with-link % :text) ingredients)])
 		(let [nutritions (food/get-food-nutritions id)]
 			[:ul "Nutritions" (map print-nutrition-item nutritions)])
 		(let [tags (food/get-food-details id :tags)]
@@ -58,7 +55,7 @@
 		(let [tags (food/get-ingredient-details id :tags)]
 			[:ul "Tags" (map print-tag tags)])
 		(let [foods (food/search-foods-by-ingredient-id id)]
-			[:ul "Foods" (map print-food-item foods)])
+			[:ul "Foods" (map #(print-li-item-with-link % :name) foods)])
 		
 	(link-to "/" "Back to index")))
 
@@ -69,7 +66,7 @@
 			[:ul "Basic information"
 			[:li "Name: " (:name manufacturerdata)]])
 		(let [foods (food/search-foods-by-manufacturer-id id)]
-			[:ul "Foods" (map print-food-item foods)])
+			[:ul "Foods" (map #(print-li-item-with-link % :name) foods)])
 		
 	(link-to "/" "Back to index")))
 
@@ -80,21 +77,16 @@
 		\m (show-manufacturer-details id)))
 
 ; ----------- index page ----------------
-(defn show-list-row [item]
-	[:li
-		(link-to (str "/details/" (:id item)) (str (:name item)))
-	])
-
 (defn show-ingredient-list []
-	[:ul (map show-list-row
+	[:ul (map #(print-li-item-with-link % :name)
 		(food/get-ingredient-list))])
 
 (defn show-food-list []
-	[:ul (map show-list-row
+	[:ul (map #(print-li-item-with-link % :name)
 		(food/get-food-list))])
 
 (defn show-manufacturer-list []
-	[:ul (map show-list-row
+	[:ul (map #(print-li-item-with-link % :name)
 		(food/get-manufacturer-list))])
 
 (defn index-page []
