@@ -82,6 +82,20 @@
 		\i (show-ingredient-details id)
 		\m (show-manufacturer-details id)))
 
+; ----------- search page ----------------
+(defn show-search-form []
+	[:div {:id "search-form"}
+	(form-to [:post "/search"]
+		(label "search" "search text")
+		[:br]
+		(text-field "search")
+		(submit-button "Search")
+	)])
+
+(defn search-page []
+	(layout
+		(show-search-form)))
+
 ; ----------- index page ----------------
 (defn show-ingredient-list []
 	[:ul (map #(print-li-item-with-link % :name)
