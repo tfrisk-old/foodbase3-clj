@@ -88,8 +88,8 @@
 	(form-to [:post "/search"]
 		(label "search" "search text")
 		[:br]
-		(text-field "search")
-		(submit-button "Search")
+		(text-field "searchtext")
+		(submit-button {:id "search-button"} "Search")
 	)])
 
 (defn search-page []
