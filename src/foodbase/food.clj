@@ -146,3 +146,14 @@
 	(filter identity
 		(map #(parse-search-entries searchtext %)
 			(seq (get-manufacturer-list)))))
+
+(defn save-new-manufacturer [mname]
+	(println "save-new-manufacturer:" mname)
+	(let [id (uuid/new-uuid-by-category :manufacturer)
+		newentry (hash-map :name (str mname) :id id)]
+			;add new entry to manufacturerlist
+			(db/save-manufacturer-list
+				(conj (get-manufacturer-list) newentry))
+			;save entry by id
+			(db/save-item-map newentry)
+	))

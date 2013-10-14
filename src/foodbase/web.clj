@@ -115,6 +115,19 @@
 		(link-to "/" "Back to index")
 	))
 
+; ----------- add new manufacturer ----------------
+(defn new-manufacturer-form [args]
+	(layout
+		[:h1 "Add new manufacturer"]
+		(form-to [:post "/new/manufacturer"]
+			(label "name" "Name: ")
+			(text-field "name")[:br]
+			(submit-button "Save"))
+		(println "new manufacturer name" (:name args))
+		(if-not (nil? (:name args))
+			(food/save-new-manufacturer (:name args)))
+		))
+
 ; ----------- index page ----------------
 (defn show-ingredient-list []
 	[:ul (map #(print-li-item-with-link % :name)
