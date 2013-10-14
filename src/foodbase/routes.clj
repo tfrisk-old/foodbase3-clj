@@ -11,6 +11,7 @@
 (defroutes app-routes
 	(GET "/" [] (web/index-page))
 	(GET "/details/:id" [id] (web/detail-page id))
+	(POST "/search" {params :params} (web/search-page params))
 	(route/not-found "Page not found"))
 
 (def app

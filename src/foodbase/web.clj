@@ -76,6 +76,30 @@
 		\i (show-ingredient-details id)
 		\m (show-manufacturer-details id)))
 
+; ----------- search page ----------------
+(defn show-food-search-form
+	"Show search form, takes previous text as an argument"
+	[previous]
+	[:div {:id "search-form"}
+	(form-to [:post "/search"]
+		(label "searchlabel" "Name: ")
+		(text-field {:value previous} "searchtext")
+		(submit-button {:id "search-button"} "Search")
+	)])
+
+(defn show-food-search-results [results]
+	[:ul (map #(print-li-item-with-link % :name) results)])
+
+(defn search-page [args]
+	(layout
+		[:h2 "Search form"]
+		(show-food-search-form (:searchtext args))
+		[:h2 "Search results"]
+		(show-food-search-results
+			(food/search-foods-by-name (str (:searchtext args))))
+		(link-to "/" "Back to index")
+	))
+
 ; ----------- index page ----------------
 (defn show-ingredient-list []
 	[:ul (map #(print-li-item-with-link % :name)
@@ -92,6 +116,7 @@
 (defn index-page []
 	(layout
 		[:h1 "Foodbase"]
+		[:h2 "Search"] (show-food-search-form "")
 		[:h2 "Food list"] (show-food-list)
 		[:h2 "Ingredient list"] (show-ingredient-list)
 		[:h2 "Manufacturer list"] (show-manufacturer-list)
