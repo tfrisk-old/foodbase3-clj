@@ -10,6 +10,8 @@
   	[hiccup "1.0.4"]
     [com.taoensso/carmine "2.2.3"]
     [org.clojure/clojurescript "0.0-1859" :exclusions [org.apache.ant/ant]]
+    [domina "1.0.2"]
+    [org.clojure/google-closure-library-third-party "0.0-2029"] ;domina requires this
     ]
   :plugins [
     [lein-ring "0.8.3"]
