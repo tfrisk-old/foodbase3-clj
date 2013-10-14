@@ -82,21 +82,36 @@
 	[previous]
 	[:div {:id "search-form"}
 	(form-to [:post "/search"]
-		(label "searchlabel" "Name: ")
-		(text-field {:value previous} "searchtext")
+		(label "foodsearch" "Food name: ")
+		(text-field {:value (:foodsearchtext previous)} "foodsearchtext")[:br]
+		(label "ingredientsearch" "Ingredient name: ")
+		(text-field {:value (:ingredientsearchtext previous)} "ingredientsearchtext")[:br]
+		(label "manufacturersearch" "Manufacturer name: ")
+		(text-field {:value (:manufacturersearchtext previous)} "manufacturersearchtext")[:br]
 		(submit-button {:id "search-button"} "Search")
 	)])
 
-(defn show-food-search-results [results]
+(defn show-search-results [results]
 	[:ul (map #(print-li-item-with-link % :name) results)])
 
 (defn search-page [args]
 	(layout
 		[:h2 "Search form"]
-		(show-food-search-form (:searchtext args))
+		(show-food-search-form
+			(hash-map ;for showing previous search values
+				:foodsearchtext (:foodsearchtext args)
+				:ingredientsearchtext (:ingredientsearchtext args)
+				:manufacturersearchtext (:manufacturersearchtext args)))
 		[:h2 "Search results"]
-		(show-food-search-results
-			(food/search-foods-by-name (str (:searchtext args))))
+		(if-not (clojure.string/blank? (:foodsearchtext args))
+			(show-search-results
+				(food/search-foods-by-name (str (:foodsearchtext args)))))
+		(if-not (clojure.string/blank? (:ingredientsearchtext args))
+			(show-search-results
+				(food/search-ingredients-by-name (str (:ingredientsearchtext args)))))
+		(if-not (clojure.string/blank? (:manufacturersearchtext args))
+			(show-search-results
+				(food/search-manufacturers-by-name (str (:manufacturersearchtext args)))))
 		(link-to "/" "Back to index")
 	))
 
