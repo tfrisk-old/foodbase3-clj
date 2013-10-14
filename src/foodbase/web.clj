@@ -116,6 +116,18 @@
 	))
 
 ; ----------- add new manufacturer ----------------
+(defn new-ingredient-form [args]
+	(layout
+		[:h1 "Add new ingredient"]
+		(form-to [:post "/new/ingredient"]
+			(label "name" "Name: ")
+			(text-field "name")[:br]
+			(submit-button "Save"))
+		(println "new ingredient name" (:name args))
+		(if-not (nil? (:name args))
+			(food/save-new-ingredient (:name args)))
+		))
+
 (defn new-manufacturer-form [args]
 	(layout
 		[:h1 "Add new manufacturer"]
