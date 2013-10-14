@@ -118,18 +118,31 @@
 			(seq (get-food-list))
 	)))
 
+(defn parse-search-entries [searchtext entry]
+	(let [id (:id entry)]
+		(if-not (nil?
+			(re-matches
+				(re-pattern (str ".*" (clojure.string/lower-case searchtext) ".*"))
+				(clojure.string/lower-case (:name (db/load-item-by-id id)))))
+			(hash-map :id id :name (get-food-details id :name)))))
+
 (defn search-foods-by-name
 	"Search foods by name, case insensitive."
 	[searchtext]
-	(filter identity (map
-		(fn [foodentry]
-			(let [foodid (:id foodentry)]
-				(if (nil?
-					(re-matches
-						(re-pattern (str ".*" (clojure.string/lower-case searchtext) ".*"))
-						(clojure.string/lower-case (:name (db/load-item-by-id foodid)))))
-					nil
-					(hash-map :id foodid :name (get-food-details foodid :name))
-			)))
-			(seq (get-food-list))
-	)))
+	(filter identity
+		(map #(parse-search-entries searchtext %)
+			(seq (get-food-list)))))
+
+(defn search-ingredients-by-name
+	"Search ingredients by name, case insensitive."
+	[searchtext]
+	(filter identity
+		(map #(parse-search-entries searchtext %)
+			(seq (get-ingredient-list)))))
+
+(defn search-manufacturers-by-name
+	"Search manufacturers by name, case insensitive."
+	[searchtext]
+	(filter identity
+		(map #(parse-search-entries searchtext %)
+			(seq (get-manufacturer-list)))))
