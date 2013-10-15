@@ -147,6 +147,26 @@
 		(map #(parse-search-entries searchtext %)
 			(seq (get-manufacturer-list)))))
 
+(defn save-new-food [args]
+	(println "save-new-food:" (:name args))
+	(let [id (uuid/new-uuid-by-category :food)
+		newentry (hash-map
+				:id id
+				:name (:name args)
+				:description (:description args)
+				:manufacturer (:manufacturer args)
+				:barcode (:barcode args)
+				:weight (:weight args)
+				:volume (:volume args)
+				:origin (:origin args))]
+			;add new entry to manufacturerlist
+			(db/save-food-list
+				(conj (get-food-list) (hash-map :id id :name (:name args))))
+			;save entry by id
+			(db/save-item-map newentry)
+			(println "save-new-food newentry hash-map:" newentry)
+	))
+
 (defn save-new-ingredient [iname]
 	(println "save-new-ingredient:" iname)
 	(let [id (uuid/new-uuid-by-category :ingredient)

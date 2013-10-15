@@ -115,7 +115,7 @@
 		(link-to "/" "Back to index")
 	))
 
-; ----------- add new manufacturer ----------------
+; ----------- add new forms ----------------
 (defn new-ingredient-form [args]
 	(layout
 		[:h1 "Add new ingredient"]
@@ -138,6 +138,30 @@
 		(println "new manufacturer name" (:name args))
 		(if-not (nil? (:name args))
 			(food/save-new-manufacturer (:name args)))
+		))
+
+(defn new-food-form [args]
+	(layout
+		[:h1 "Add new food"]
+		(form-to [:post "/new/food"]
+			(label "name" "Name: ")
+			(text-field "name")[:br]
+			(label "description" "Description: ")
+			(text-field "description")[:br]
+			(label "manufacturer" "Manufacturer: ")
+			(text-field "manufacturer")[:br]
+			(label "barcode" "Barcode: ")
+			(text-field "barcode")[:br]
+			(label "weight" "Weight: ")
+			(text-field "weight")[:br]
+			(label "volume" "Volume: ")
+			(text-field "volume")[:br]
+			(label "origin" "Origin: ")
+			(text-field "origin")[:br]
+			(submit-button "Save"))
+		(println "new food name" (:name args))
+		(if-not (nil? (:name args))
+			(food/save-new-food args))
 		))
 
 ; ----------- index page ----------------
