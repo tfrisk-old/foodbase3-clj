@@ -167,10 +167,14 @@
 			(println "save-new-food newentry hash-map:" newentry)
 	))
 
-(defn save-new-ingredient [iname]
-	(println "save-new-ingredient:" iname)
+(defn save-new-ingredient [args]
+	(println "save-new-ingredient: name:" (:name args))
+	(println "save-new-ingredient: args" args)
 	(let [id (uuid/new-uuid-by-category :ingredient)
-		newentry (hash-map :name (str iname) :id id)]
+		newentry (hash-map
+				:id id
+				:name (:name args)
+				)]
 			;add new entry to manufacturerlist
 			(db/save-ingredient-list
 				(conj (get-ingredient-list) newentry))

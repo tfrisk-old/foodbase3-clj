@@ -122,10 +122,12 @@
 		(form-to [:post "/new/ingredient"]
 			(label "name" "Name: ")
 			(text-field "name")[:br]
+			(label "tags" "Tags:")
+			(text-area "tags")[:br]
 			(submit-button "Save"))
 		(println "new ingredient name" (:name args))
 		(if-not (nil? (:name args))
-			(food/save-new-ingredient (:name args)))
+			(food/save-new-ingredient args))
 		))
 
 (defn new-manufacturer-form [args]
