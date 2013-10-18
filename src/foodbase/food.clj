@@ -147,6 +147,21 @@
 		(map #(parse-search-entries searchtext %)
 			(seq (get-manufacturer-list)))))
 
+;this tag handling is a bit of hack at the moment
+;some other data structure could be better for tags
+(defn string-to-tags [string]
+	(zipmap
+		(map #(keyword %)
+			(clojure.string/split
+				;trim whitespace
+				(clojure.string/replace string " " "") #","))
+		(repeat true)))
+
+(defn tags-to-string [tagmap]
+	(clojure.string/join ","
+		(map #(name (key %))
+			(seq tagmap))))
+
 (defn save-new-food [args]
 	(println "save-new-food:" (:name args))
 	(let [id (uuid/new-uuid-by-category :food)
@@ -158,7 +173,9 @@
 				:barcode (:barcode args)
 				:weight (:weight args)
 				:volume (:volume args)
-				:origin (:origin args))]
+				:origin (:origin args)
+				:tags (string-to-tags (:tags args))
+				)]
 			;add new entry to manufacturerlist
 			(db/save-food-list
 				(conj (get-food-list) (hash-map :id id :name (:name args))))
@@ -174,6 +191,7 @@
 		newentry (hash-map
 				:id id
 				:name (:name args)
+				:tags (string-to-tags (:tags args))
 				)]
 			;add new entry to manufacturerlist
 			(db/save-ingredient-list

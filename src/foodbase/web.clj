@@ -160,6 +160,8 @@
 			(text-field "volume")[:br]
 			(label "origin" "Origin: ")
 			(text-field "origin")[:br]
+			(label "tags" "Tags:")
+			(text-area "tags")[:br]
 			(submit-button "Save"))
 		(println "new food name" (:name args))
 		(if-not (nil? (:name args))
